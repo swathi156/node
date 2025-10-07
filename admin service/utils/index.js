@@ -4,12 +4,12 @@ const sequelize = require("./config/db");
 const patientRoutes = require("./routes/patientRoutes");
 
 dotenv.config();
-
+const doctorRoutes = require("./routes/doctorRoutes");
 const app = express();
 app.use(express.json());
 
 app.use("/api/patients", patientRoutes);
-
+app.use("/api/doctor", doctorRoutes);
 sequelize
   .authenticate()
   .then(() => {
