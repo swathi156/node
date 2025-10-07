@@ -2,9 +2,9 @@ const express = require("express");
 const dotenv = require("dotenv");
 const sequelize = require("./config/db");
 const patientRoutes = require("./routes/patientRoutes");
-
-dotenv.config();
 const doctorRoutes = require("./routes/doctorRoutes");
+dotenv.config();
+
 const app = express();
 app.use(express.json());
 
