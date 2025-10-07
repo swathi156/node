@@ -4,6 +4,7 @@ const sequelize = require("./config/db");
 const patientRoutes = require("./routes/patientRoutes");
 const doctorRoutes = require("./routes/doctorRoutes");
 const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/auth");
 dotenv.config();
 
 const app = express();
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/patients", patientRoutes);
 app.use("/api/doctor", doctorRoutes);
+app.use("/api/auth", authRoutes);
 sequelize
   .authenticate()
   .then(() => {
