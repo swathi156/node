@@ -1,30 +1,44 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const sequelize = require("./config/db");
+dotenv.config(); 
+
+const userDb = require("./config/userDb");
+const patientDb = require("./config/patientDb");
+const doctorDb = require("./config/doctorDb");
+
 const patientRoutes = require("./routes/patientRoutes");
 const doctorRoutes = require("./routes/doctorRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/auth");
-dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use("/api/users", userRoutes);
+
+//API Routes
 app.use("/api/patients", patientRoutes);
-app.use("/api/doctor", doctorRoutes);
+app.use("/api/doctors", doctorRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
-sequelize
-  .authenticate()
+
+//Test all DB connections
+Promise.all([
+  userDb.authenticate(),
+  patientDb.authenticate(),
+  doctorDb.authenticate(),
+])
   .then(() => {
-    console.log("Database connected successfully.");
-    return sequelize.sync({ alter: true });
+    console.log("All databases connected successfully!");
+    return Promise.all([
+      userDb.sync({ alter: true }),
+      patientDb.sync({ alter: true }),
+      doctorDb.sync({ alter: true }),
+    ]);
   })
   .then(() => {
-    console.log("All models synchronized.");
-    app.listen(process.env.PORT || 5000, () => {
-      console.log(`Server running on port ${process.env.PORT || 5000}`);
-    });
+    console.log("All tables synced successfully!");
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   })
   .catch((err) => {
-    console.error("Database connection failed:", err);
+    console.error("Database connection error:", err);
   });
