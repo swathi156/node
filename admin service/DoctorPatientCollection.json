@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+		"name": "Doctor & Patient Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth Module",
+			"item": [
+				{
+					"name": "Register Doctor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dr. John Doe\",\n    \"email\": \"doctor1@example.com\",\n    \"specialization\": \"Cardiologist\",\n    \"hospital\": \"City Hospital\",\n    \"phno\": \"9876543210\",\n    \"status\": \"Active\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/register-doctor",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","auth","register-doctor"]
+						}
+					}
+				},
+				{
+					"name": "Register Patient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jane Smith\",\n    \"email\": \"patient1@example.com\",\n    \"phno\": \"9876543211\",\n    \"age\": 30,\n    \"gender\": \"Female\",\n    \"height\": 165,\n    \"weight\": 60,\n    \"medicalCondition\": \"Diabetes\",\n    \"allergies\": \"None\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/register-patient",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","auth","register-patient"]
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"doctor1@example.com\",\n    \"password\": \"password_from_email\",\n    \"type\": \"doctor\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","auth","login"]
+						}
+					}
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT_TOKEN_HERE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"password_from_email\",\n    \"newPassword\": \"NewPassword123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/change-password",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","auth","change-password"]
+						}
+					}
+				},
+				{
+					"name": "Forgot Password (OTP)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"doctor1@example.com\",\n    \"type\": \"doctor\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/forgot-password",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","auth","forgot-password"]
+						}
+					}
+				},
+				{
+					"name": "Reset Password (OTP)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"doctor1@example.com\",\n    \"otp\": \"123456\",\n    \"newPassword\": \"NewPassword123\",\n    \"type\": \"doctor\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/reset-password",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","auth","reset-password"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Doctor Module",
+			"item": [
+				{
+					"name": "Get All Doctors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT_TOKEN_HERE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/doctors",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","doctors"]
+						}
+					}
+				},
+				{
+					"name": "Get Doctor by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT_TOKEN_HERE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/doctors/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","doctors","1"]
+						}
+					}
+				},
+				{
+					"name": "Update Doctor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT_TOKEN_HERE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hospital\": \"Updated Hospital\",\n    \"status\": \"Inactive\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/doctors/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","doctors","1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Doctor",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT_TOKEN_HERE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/doctors/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","doctors","1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Patient Module",
+			"item": [
+				{
+					"name": "Get All Patients",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT_TOKEN_HERE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/patients",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","patients"]
+						}
+					}
+				},
+				{
+					"name": "Get Patient by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT_TOKEN_HERE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/patients/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","patients","1"]
+						}
+					}
+				},
+				{
+					"name": "Update Patient",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT_TOKEN_HERE"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"weight\": 65,\n    \"allergies\": \"Pollen\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/patients/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","patients","1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Patient",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT_TOKEN_HERE"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/patients/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api","patients","1"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
